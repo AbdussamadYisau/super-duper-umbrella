@@ -1,0 +1,19 @@
+{
+  "name": "seedstars-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
+  },
+  "author": "Me",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "express": "^4.18.2",
+    "md5": "^2.3.0",
+    "nodemon": "^2.0.20",
+    "sqlite3": "^5.1.2"
+  }
+}
