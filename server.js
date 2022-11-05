@@ -64,7 +64,7 @@ app.post("/api/user/", (req, res, next) => {
             res.status(400).json({"error": err.message})
             return;
         }
-        res.json({
+        res.status(200).json({
             "message": "success",
             "data": data,
             "id" : this.lastID
@@ -72,6 +72,43 @@ app.post("/api/user/", (req, res, next) => {
     });
 })
 
+app.post("/api/login", (req, res, next) => {
+    let errors = [];
+    const {email, password} = req.body;
+
+    if (!email) {
+        errors.push("No email specified");
+    }
+
+    if (!password) {
+        errors.push("No password specified");
+    }
+
+    if (errors.length){
+        res.status(400).json({"error":errors.join(",")});
+        return;
+    }
+
+    var sql = `select * from user where email= '${email}' and password='${md5(password)}'`;
+
+    db.all(sql, (err, rows) => {
+        if(err) {
+            throw err;
+        }
+
+        if (rows.length > 0) {
+            res.status(200).json({
+                "message": "success",
+                "validation": true,
+            })
+        } else {
+            res.status(200).json({
+                "message": "success",
+                "validation": false,
+            })
+        }
+    })
+})
 
 
 app.use( (req, res) => {
